@@ -14,7 +14,7 @@ public class HashTable {
 
     // return the index position based on the hash function for the data
     private int hashFunction1(String data) {
-        return data.length() % table.length;
+        return Character.toLowerCase(data.charAt(data.length()-1)) % table.length;;
     }
 
     // return the index position based on the hash function for the data
