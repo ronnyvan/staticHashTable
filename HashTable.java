@@ -14,13 +14,13 @@ public class HashTable {
 
     // return the index position based on the hash function for the data
     private int hashFunction1(String data) {
-        return Character.toLowerCase(data.charAt(data.length()-1)) % table.length;;
+     
     }
 
     // return the index position based on the hash function for the data
     private int hashFunction2(String data) {
         // create a second hash function to test with
-        return Character.toLowerCase(data.charAt(0)) % table.length;
+       
     }
 
     // insert the data into the hash table based on your hash function and use
