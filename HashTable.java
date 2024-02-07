@@ -27,31 +27,20 @@ public class HashTable {
     // linear probing to resolve collisions
     // include updates to metrics variables
     public void insert(String data) {
-
-//        if ((double) elementCount() / table.length >= 0.75) capacity();
         int hash = hashFunction1(data);
+//      int hash = hashFunction2(data);
         if (table[hash] == null) {
             table[hash] = new LinkedList<String>();
             size++;
         }
         else collisions++;
         table[hash].add(data);
-
-
-//        int hash = hashFunction2(data);
-//        if (table[hash] == null) {
-//            table[hash] = new LinkedList<String>();
-//            size++;
-//        }
-//        else collisions++;
-//        table[hash].add(data);
     }
 
     public void capacity() {
         size = 0;
         maxChained = 0;
         collisions = 0; // reset metrics
-
         ArrayList<String> valHolder = gatherData(table);
 
         LinkedList<String>[] newTable = new LinkedList[table.length*2];
@@ -94,5 +83,4 @@ public class HashTable {
             result += "\n[" + i + "]\t\t\t" + (i < 10 ? "\t" : "")+ (table[i] != null ? table[i].toString() : "[]");
         System.out.println(result);
     }
-
 }
