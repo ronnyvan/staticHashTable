@@ -1,59 +1,80 @@
 import java.util.LinkedList;
-public class HashTable<V> {
-    private LinkedList<V>[] table;
-    private int size, collisions, maxChained;
 
-    public HashTable(int capacity){
+public class HashTable {
+    private LinkedList<String>[] table;
+    private int size, maxChained, collisions; // used for metrics
+
+    public HashTable(int capacity) {
         table = new LinkedList[capacity];
-        populate(table);
-        size = collisions = maxChained = 0;
-    }
-    public void populate(LinkedList<V>[] table){
-        for(int i = 0; i < table.length; i++)
-            table[i] = new LinkedList<V>();
-    }
-    public int hashFunction1(V data){
-        return (data instanceof String)
-                ? Character.toLowerCase(((String) data).charAt(0)) % table.length
-                : data.hashCode();
-    }
-    public int hashFunction2(V data){
-        return (data instanceof String)
-                ? ((String) data).chars().sum() % table.length
-                : data.hashCode();
+        for(int i = 0; i < capacity; i++)
+            table[i] = new LinkedList<String>();
+        size = maxChained = collisions = 0;
     }
 
-    public void insert(V data){
+    // return the index position based on the hash function for the data
+    private int hashFunction1(String data) {
+        
+    }
+
+    // return the index position based on the hash function for the data
+    private int hashFunction2(String data) {
+        // create a second hash function to test with
+        
+    }
+
+    // insert the data into the hash table based on your hash function and use
+    // linear probing to resolve collisions
+    // include updates to metrics variables
+    public void insert(String data) {
         int hash = hashFunction1(data);
-        //int hash = hashFunction2(data);
-        if(table[hash].isEmpty()) size++;
-        else collisions++;
+        int hash = hashFunction2(data);
+        if(table[hash].isEmpty()) 
+            size++;
+        else 
+            collisions++;
         table[hash].add(data);
     }
-    public void capacity(){
-        size = collisions = maxChained = 0;
-        LinkedList<V>[] oldTable = table;
-        table = new LinkedList[oldTable.length*2];
-        populate(table);
 
-        for(LinkedList<V> bucket: oldTable)
-            for(V data: bucket)
-                insert(data);
+    public void capacity() {
+        size = 0;
+        maxChained = 0;
+        collisions = 0; // reset metrics
+
+       LinkedList<String>[] oldTable = table;
+       table = new LinkedList[oldTable.length*2];
+       for(int i = 0; i < table.length; i++)
+           table[i] = new LinkedList<String>();
+
+       for(LinkedList<String> list: oldTable)
+           for(String s: list)
+               insert(s);
     }
-    public int holes() { return table.length - size; }
-    //returns the number of collisions this heap has encountered
-    public int collisions() { return collisions; }
-    //returns the maximum number of elements that are chained to a position in the hash table
+
+    // returns the number of holes in the hash table
+    public int holes() {
+        return table.length - size;
+    }
+
+
+    // returns the number of collisions this heap has encountered
+    public int collisions() {
+        return collisions;
+    }
+
+    // returns the maximum number of elements that are chained to a position in the
+    // hash table
     public int maxChained() {
-        for(LinkedList<V> bucket : table)
-            maxChained = Math.max(maxChained, bucket.size());
+        for (int i = 0; i < table.length; i++) {
+            maxChained = Math.max(table[i].size(), maxChained);
+        }
         return maxChained;
     }
 
-    public void displayTable() {
+    public void displayTable() { // 5 entries displayed per line
         String result = "\n\t\tTable:\n[Keys]\t\t\t[Values]";
         for (int i = 0; i <= table.length - 1; i++)
-            result += "\n[" + i + "]\t\t\t" + (i < 10 ? "\t" : "") + table[i].toString();
+            result += "\n[" + i + "]\t\t\t" + (i < 10 ? "\t" : "") + table[i];
         System.out.println(result);
     }
+
 }
