@@ -4,7 +4,7 @@ public class TestHashTable
     public static void main(String[] args)
     {
         // unique values
-        System.out.println("\n\nhashFunction1 -> hashes based off string length\nhashFunction2 -> hashes based off ASCII value of string's first character\n");
+        System.out.println("\n\nhashFunction1 -> hashes based off ??? \nhashFunction2 -> hashes based off ???\n");
         System.out.println("\tPart 1 - Unique Values");
         HashTable h = helper(new String[]{"Bennett", "Troy", "Shiloh", "Brennan", "Priscilla", "Angie", "Elian", "Destinee", "Livia", "Kinley", "Donald", "Bradley", "Moriah"}, 20);
 
